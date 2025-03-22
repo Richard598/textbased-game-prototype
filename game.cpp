@@ -2,28 +2,29 @@
 
 
 void Game::mainloop(Screen& screen){
-    int a=0,b=0;
+    int a=3,b=3;
     Input input;
+    Player player;
     while(!this->finish) {
         this_thread::sleep_for(chrono::milliseconds(50));
-        char ch = input.get_key();
+        screen.refresh();
+        screen.draw(0,0,map);
+        char ch = input.get_input();
         if(ch == 'A' || ch == 'a') {
-            screen.draw(a,b,Aletter);
-            screen.render();
+            player.move_left(screen);
         }
         else if(ch == 'D' || ch == 'd') {
-            screen.draw(a,b,Dletter);
-            screen.render();
+            player.move_right(screen);
         }
         else if(ch == 'W' || ch == 'w') {
-            screen.draw(a,b,Wletter);
-            screen.render();
+            player.move_up(screen);
         }   
         else if(ch == 'S' || ch == 's') {
-            screen.draw(a,b,Sletter);
-            screen.render();
+            player.move_down(screen);
         }   
         else if(ch == 'E' || ch == 'e')
             this->finish = true;
+        screen.draw(player);
+        screen.render();
     }
 }

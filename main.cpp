@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    Screen screen;
+    Screen screen(10,10);
     Game game;
     game.mainloop(screen);
     return 0;

@@ -12,7 +12,7 @@ using namespace std;
 class Input {     
     public:
         Input();
-        char get_key();
+        char get_input();
         static void end();
 };
 

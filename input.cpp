@@ -21,8 +21,8 @@ void Input::end() {
     tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
 }
 
-char Input::get_key() {
-    char ch = -1;
-    int n = read(STDIN_FILENO, &ch, 1); 
-    return ch;
+char Input::get_input() {
+    char buf[4096] = "";
+    int n = read(STDIN_FILENO, buf, sizeof(buf)); 
+    return *buf;
 }

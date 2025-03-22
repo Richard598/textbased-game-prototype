@@ -6,6 +6,7 @@
 #include "screen.h"
 #include "text.h"
 #include "input.h"
+#include "player.h"
 
 using namespace std;
 

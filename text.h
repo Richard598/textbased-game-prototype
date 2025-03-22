@@ -6,6 +6,19 @@
 
 using namespace std;
 
+const vector<string> map = {
+    "**********",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+    "*        *",
+};
+
 const vector<string> Aletter = {
     "  *  ",
     " * * ",
