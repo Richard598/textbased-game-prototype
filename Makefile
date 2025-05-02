@@ -1,28 +1,30 @@
-FLAGS = -pedantic-errors -std=c++11
+CXX ?= g++
+CXXFLAGS = -std=c++17 -Wall -I./src/header
 
-all: main run clean
+SRC_DIR := src
+BUILD_DIR := build
+HEADER_DIR := $(SRC_DIR)/header
 
-main: main.o screen.o game.o input.o player.o
-	g++ $(FLAGS) $^ -o $@ 
+SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS := $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o,$(SRCS))
 
-player.o: player.cpp player.h
-	g++ $(FLAGS) -c $<
+TARGET := $(BUILD_DIR)/game
 
-input.o: input.cpp input.h
-	g++ $(FLAGS) -c $<
+all: $(TARGET)
 
-screen.o: screen.cpp screen.h
-	g++ $(FLAGS) -c $<
+$(TARGET): $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(OBJS) -o $@
 
-game.o: game.cpp game.h
-	g++ $(FLAGS) -c $<
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADER_DIR)/*.h
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-main.o: main.cpp text.h screen.h game.h input.h player.h
-	g++ $(FLAGS) -c $<
+clean:
+	rm -rf $(BUILD_DIR)/*.o $(TARGET)
 
-run:
-	./main
-clean: 
-	rm -f *.o main
+run: all
+	./$(TARGET)
 
-.PHONY: clean run all
+
+.PHONY: all clean run
